@@ -3,11 +3,12 @@ import { BtnComponent } from '../btn/btn.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [BtnComponent, OverlayModule, FontAwesomeModule],
+  imports: [BtnComponent, OverlayModule, FontAwesomeModule, RouterLink],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit{

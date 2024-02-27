@@ -5,11 +5,12 @@ import { faBox, faWaveSquare, faClock, faAngleDown, faAngleUp, faHeart, faBorder
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-boards',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule, CdkAccordionModule, CommonModule],
+  imports: [NavbarComponent, FontAwesomeModule, CdkAccordionModule, CommonModule, RouterLink],
   templateUrl: './boards.component.html'
 })
 export class BoardsComponent {
