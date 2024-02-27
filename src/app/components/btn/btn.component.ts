@@ -27,6 +27,7 @@ export class BtnComponent {
       'focus:ring-red-300' : this.color === 'red',
       'bg-gray-200' : this.color === 'gray-light',
       'hover:bg-gray-500' : this.color === 'gray-light',
+      'hover:text-white' : this.color === 'gray-light',
       'focus:ring-gray-50' : this.color === 'gray-light'
     };
   }
