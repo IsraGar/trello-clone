@@ -19,7 +19,13 @@
                 </ul>
             </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center gap-x-3">
+            <button class="text-white" type="button">
+                <fa-icon [icon]="faBell"></fa-icon>
+            </button>
+            <button class="text-white" type="button">
+                <fa-icon [icon]="faInfoCircle"></fa-icon>
+            </button>
             <button type="button" class="flex rounded-full" aria-expanded="false" type="button"
                 (click)="isOpen = !isOpen" cdkOverlayOrigin #menuOverlay="cdkOverlayOrigin">
                 <img class="w-8 h-8 rounded-full" src="/assets/images/user/usuario.png" alt="user photo" />
@@ -32,7 +38,7 @@
         <div class="py-3 px-4 flex justify-between">
             <span class="block text-sm text-center text-gray-900">Account</span>
             <button (click)="isOpen = !isOpen" class="block text-sm text-gray-900">
-                x
+                ✖
             </button>
         </div>
         <div class="py-3 px-4 flex items-center space-x-4">
