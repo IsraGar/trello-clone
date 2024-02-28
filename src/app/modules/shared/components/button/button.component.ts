@@ -39,6 +39,7 @@ export class ButtonComponent {
     light: {
       'bg-gray-200': true,
       'hover:bg-gray-500': true,
+      'hover:text-white': true,
       'focus:ring-gray-50': true,
       'text-gray-700': true,
     },

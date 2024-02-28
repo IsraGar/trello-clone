@@ -2,8 +2,8 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClose, faCheckToSlot, faBars, faUser, faTag, faCheckSquare, faClock } from '@fortawesome/free-solid-svg-icons';
-import { BtnComponent } from '../../../../components/btn/btn.component';
 import { ToDo } from '../../../../models/todo.model';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 interface InputData {
   todo: ToDo
@@ -16,7 +16,7 @@ interface OutputData {
 @Component({
   selector: 'app-todo-dialog',
   standalone: true,
-  imports: [BtnComponent, FontAwesomeModule],
+  imports: [ButtonComponent, FontAwesomeModule],
   templateUrl: './todo-dialog.component.html'
 })
 export class TodoDialogComponent {
