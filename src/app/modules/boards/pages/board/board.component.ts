@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
-import { ToDo, Column } from '../../models/todo.model';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ToDo, Column } from '../../../../models/todo.model';
+import { NavbarComponent } from '../../../layout/components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import {FormsModule} from '@angular/forms';
