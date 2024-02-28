@@ -3,13 +3,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  images: string[];
-}
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-scroll',
