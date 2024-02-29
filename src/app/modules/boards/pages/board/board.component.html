@@ -9,17 +9,19 @@
                     <div class="flex justify-between py-1">
                         <h3 class="text-sm font-bold ml-2">{{ column.title }}</h3>
                     </div>
-    
-                    <div class="text-sm mt-2 min-h-[2.5rem]" cdkDropList [cdkDropListData]="column.todos" (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let todo of column.todos" cdkDrag
-                            (click)="openDialog(todo)"
+
+                    <div class="text-sm mt-2 min-h-[2.5rem]" cdkDropList [cdkDropListData]="column.todos"
+                        (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let todo of column.todos" cdkDrag (click)="openDialog(todo)"
                             class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
                             {{ todo.title }}
                         </div>
-                        <button class="shrink-0 text-left py-2 mt-1 rounded px-1 bg-gray-300 hover:bg-gray-400">Add Task <fa-icon [icon]="faPlus"></fa-icon></button>
+                        <button class="shrink-0 text-left py-2 mt-1 rounded px-1 bg-gray-300 hover:bg-gray-400">Add Task
+                            <fa-icon [icon]="faPlus"></fa-icon></button>
                     </div>
                 </div>
-                <button class="shrink-0 py-1 px-1 rounded bg-gray-300" (click)="addColumn()">Add Column <fa-icon [icon]="faPlus"></fa-icon></button>
+                <button class="shrink-0 py-1 px-1 rounded bg-gray-300" (click)="addColumn()">Add Column <fa-icon
+                        [icon]="faPlus"></fa-icon></button>
             </div>
         </div>
     </div>

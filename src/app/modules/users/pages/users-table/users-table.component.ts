@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DataSourceUser } from './data.source';
 import { CommonModule } from '@angular/common';
 import {CdkTableModule} from '@angular/cdk/table';
+import { UsersService } from '../../../../services/users.service';
 
 @Component({
   selector: 'app-users-table',
@@ -9,10 +10,11 @@ import {CdkTableModule} from '@angular/cdk/table';
   imports: [CommonModule, CdkTableModule],
   templateUrl: './users-table.component.html'
 })
-export class UsersTableComponent {
+export class UsersTableComponent implements OnInit{
 
   dataSource = new DataSourceUser();
   columns: string[] = ['id', 'avatar', 'name', 'email'];
+  private usersService = inject(UsersService);
 
   constructor() {
     this.dataSource.init([
@@ -35,6 +37,12 @@ export class UsersTableComponent {
         avatar: 'https://api.lorem.space/image/face?w=150&h=150'
       }
     ]);
+  }
+  
+  ngOnInit(): void {
+    this.usersService.getUsers().subscribe(data => {
+      this.dataSource.init(data);
+    });
   }
 
 }
