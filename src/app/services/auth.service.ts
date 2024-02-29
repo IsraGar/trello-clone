@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../environments/environment.prod';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
+import { TokenService } from './token.service';
+import { ResponseLogin } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private tokenService= inject(TokenService);
 
   private http = inject(HttpClient);
 
@@ -15,10 +19,14 @@ export class AuthService {
   constructor() { }
 
   login(email: string, password: string){
-    return this.http.post(`${this.apiUrl}/api/v1/auth/login`, {
+    return this.http.post<ResponseLogin>(`${this.apiUrl}/api/v1/auth/login`, {
       email,
       password
-    });
+    }).pipe(
+      tap(response => {
+        this.tokenService.saveToken(response.access_token);
+      })
+    );
   }
 
   register(name: string, email: string, password: string){
@@ -46,6 +54,10 @@ export class AuthService {
 
   changePassword(token: string, newPassword: string){
     return this.http.post(`${this.apiUrl}/api/v1/auth/change-password`, { token, newPassword });
+  }
+
+  logout(){
+    this.tokenService.removeToken();
   }
 
 }

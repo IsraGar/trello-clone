@@ -9,18 +9,21 @@ import { RegisterComponent } from './modules/auth/pages/register/register.compon
 import { RecoveryComponent } from './modules/auth/pages/recovery/recovery.component';
 import { ProfileComponent } from './modules/profile/pages/profile/profile.component';
 import { UsersTableComponent } from './modules/users/pages/users-table/users-table.component';
+import { authGuard } from './guards/auth.guard';
+import { redirectGuard } from './guards/redirect.guard';
+import { LayoutComponent } from './modules/layout/components/layout/layout.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: '', redirectTo: 'app', pathMatch: 'full' },
+    { path: 'app', component: LayoutComponent },
+    { path: 'login', component: LoginComponent, canActivate: [ redirectGuard ] },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'recovery', component: RecoveryComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'boards', component: BoardsComponent },
-    { path: 'users', component: UsersTableComponent },
-    { path: 'boards/:id', component: BoardComponent },
-
+    { path: 'profile', component: ProfileComponent, canActivate: [ authGuard ] },
+    { path: 'boards', component: BoardsComponent, canActivate: [ authGuard ] },
+    { path: 'users', component: UsersTableComponent, canActivate: [ authGuard ] },
+    { path: 'boards/:id', component: BoardComponent, canActivate: [ authGuard ] },
     
     { path: 'scroll', component: ScrollComponent },
     { path: 'table', component: TableComponent }
