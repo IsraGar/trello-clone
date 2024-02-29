@@ -53,7 +53,7 @@ export class RegisterFormComponent {
       .subscribe({
         next: () => {
           this.status = 'success';
-          this.router.navigate(['/boards']);
+          this.router.navigate(['/app/boards']);
         },
         error: (error) => {
           if (error.error.code === 'SQLITE_CONSTRAINT_UNIQUE'){
@@ -79,7 +79,7 @@ export class RegisterFormComponent {
             this.form.controls.email.setValue(email);
             this.showRegister = true;
           }else{
-            this.router.navigate(['/login'], {
+            this.router.navigate(['/'], {
               queryParams: { email }
             });
           }

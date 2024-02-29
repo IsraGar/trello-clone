@@ -45,7 +45,7 @@ export class RecoveryFormComponent {
       if(token){
         this.token = token;
       }else{
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       }
     }
     )
@@ -59,7 +59,7 @@ export class RecoveryFormComponent {
       .subscribe({
         next: () =>{
           this.status = 'success';
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.status = 'failed';
