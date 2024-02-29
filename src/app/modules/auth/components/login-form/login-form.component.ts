@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -32,8 +32,16 @@ export class LoginFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParamMap.subscribe(params => {
+      const email = params.get('email');
+      if(email){
+        this.form.controls.email.setValue(email);
+      }
+    })
+   }
 
   doLogin() {
     if (this.form.valid) {
