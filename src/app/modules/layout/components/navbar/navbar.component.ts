@@ -6,6 +6,7 @@ import { faBell, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth.service';
+import { User } from '../../../../models/user.model';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit{
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  user: User | null  = null;
 
   faBell = faBell;
   faInfoCircle = faInfoCircle;
@@ -30,6 +32,11 @@ export class NavbarComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.authService.getProfile().subscribe(user => {
+      this.user = user;
+      console.log(this.user);
+      
+    });
   }
 
   logout(){

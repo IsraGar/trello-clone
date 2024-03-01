@@ -21,7 +21,7 @@ export class LoginFormComponent {
 
   form = this.formBuilder.nonNullable.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [ Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   faPen = faPen;
@@ -29,6 +29,7 @@ export class LoginFormComponent {
   faEyeSlash = faEyeSlash;
   showPassword = false;
   status: RequestStatus = 'init';
+  message = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,26 +38,34 @@ export class LoginFormComponent {
   ) {
     this.route.queryParamMap.subscribe(params => {
       const email = params.get('email');
-      if(email){
+      if (email) {
         this.form.controls.email.setValue(email);
       }
     })
-   }
+  }
 
   doLogin() {
     if (this.form.valid) {
       this.status = 'loading';
       const { email, password } = this.form.getRawValue();
-      this.authService.login(email, password)
-      .subscribe({
-        next: () => {
+
+      this.authService.isAvailable(email).subscribe(response => {
+        if (!response.isAvailable) {
+          this.authService.login(email, password)
+            .subscribe({
+              next: () => {
+                this.status = 'success';
+                this.router.navigate(['/app/boards']);
+              },
+              error: () => {
+                this.status = 'failed';
+              }
+            })
+        }else{
           this.status = 'success';
-          this.router.navigate(['/app/boards']);
-        },
-        error: () => {
-          this.status = 'failed';
+          this.message = 'This user is not registered yet.';
         }
-      })
+      });
     } else {
       this.form.markAllAsTouched();
     }

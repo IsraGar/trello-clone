@@ -38,6 +38,11 @@
         Credentials are invalid or incorrect
       </p>
     </div>
+    <div *ngIf="message !== null">
+      <p class="font-medium text-red-500 text-xs mt-1 ml-1">
+        {{ message }}
+      </p>
+    </div>
   </div>
   <div>
     <app-btn typeBtn="submit" color="success" [loading]="status === 'loading'">Login</app-btn>
