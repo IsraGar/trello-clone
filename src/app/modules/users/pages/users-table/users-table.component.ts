@@ -44,11 +44,14 @@ export class UsersTableComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    this.getUsers();
+    this.user = this.authService.getDataUser();
+  }
+
+  getUsers(){
     this.usersService.getUsers().subscribe(data => {
       this.dataSource.init(data);
     });
-
-    this.user = this.authService.getDataUser();
   }
 
 }

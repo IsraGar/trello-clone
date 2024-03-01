@@ -5,7 +5,7 @@ import { TokenService } from '../services/token.service';
 export const redirectGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
-  const isValidToken = tokenService.isValidToken();
+  const isValidToken = tokenService.isValidRefreshToken();
   if(isValidToken){
     router.navigate(['/app/boards']);
   }
