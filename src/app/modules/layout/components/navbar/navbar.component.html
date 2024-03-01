@@ -1,82 +1,90 @@
-<nav class="bg-sky-700 border-gray-200 px-6 shadow-md">
-    <div class="flex flex-wrap justify-between items-center">
-        <div class="flex items-center">
-            <a [routerLink]="['/app/boards']">
-                <img loading="lazy" class="w-20 mr-8"
-                    src="/assets/images/logo/trello-logo-gradient-white-attribution_rgb@2x.png" alt="logo" />
-            </a>
+<ng-container *ngIf="user$ | async as user">
+    <nav class="bg-sky-700 border-gray-200 px-6 shadow-md">
+        <div class="flex flex-wrap justify-between items-center">
             <div class="flex items-center">
-                <ul class="flex items-center space-x-8 text-sm font-medium">
-                    <li>
-                        <a [routerLink]="['/app/boards']" class="block py-3 px-4 text-white">Workspaces</a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/app/users']" class="block py-3 px-4 text-white">Users</a>
-                    </li>
-                    <!-- <li>
-                            <a [routerLink]="['/scroll']" class="block py-3 px-4 text-white">Scroll</a>
+                <a [routerLink]="['/app/boards']">
+                    <img loading="lazy" class="w-20 mr-8"
+                        src="/assets/images/logo/trello-logo-gradient-white-attribution_rgb@2x.png" alt="logo" />
+                </a>
+                <div class="flex items-center">
+                    <ul class="flex items-center space-x-8 text-sm font-medium">
+                        <li>
+                            <a [routerLink]="['/app/boards']" class="block py-3 px-4 text-white">Workspaces</a>
                         </li>
                         <li>
-                            <a [routerLink]="['/table']" class="block py-3 px-4 text-white">Table</a>
-                        </li> -->
-                    <li>
-                        <app-btn typeBtn="button">Create</app-btn>
-                    </li>
-                </ul>
+                            <a [routerLink]="['/app/users']" class="block py-3 px-4 text-white">Users</a>
+                        </li>
+                        <!-- <li>
+                                <a [routerLink]="['/scroll']" class="block py-3 px-4 text-white">Scroll</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/table']" class="block py-3 px-4 text-white">Table</a>
+                            </li> -->
+                        <li>
+                            <app-btn typeBtn="button">Create</app-btn>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <button class="text-white" type="button">
+                    <fa-icon [icon]="faBell"></fa-icon>
+                </button>
+                <button class="text-white" type="button">
+                    <fa-icon [icon]="faInfoCircle"></fa-icon>
+                </button>
+                <button type="button" class="flex rounded-full" aria-expanded="false" type="button"
+                    (click)="isOpen = !isOpen" cdkOverlayOrigin #menuOverlay="cdkOverlayOrigin">
+                    <img class="w-8 h-8 rounded-full" [src]="user.avatar" alt="user photo" />
+                </button>
             </div>
         </div>
-        <div class="flex items-center gap-x-3">
-            <button class="text-white" type="button">
-                <fa-icon [icon]="faBell"></fa-icon>
-            </button>
-            <button class="text-white" type="button">
-                <fa-icon [icon]="faInfoCircle"></fa-icon>
-            </button>
-            <button type="button" class="flex rounded-full" aria-expanded="false" type="button"
-                (click)="isOpen = !isOpen" cdkOverlayOrigin #menuOverlay="cdkOverlayOrigin">
-                <img class="w-8 h-8 rounded-full" [src]="user?.avatar" alt="user photo" />
-            </button>
-        </div>
-    </div>
-</nav>
-<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="menuOverlay" [cdkConnectedOverlayOpen]="isOpen"
-    (overlayOutsideClick)="isOpen = !isOpen">
-    <div class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
-        <div class="py-3 px-4 flex justify-between">
-            <span class="block text-sm text-center text-gray-900">Account</span>
-            <button (click)="isOpen = !isOpen" class="block text-sm text-gray-900">
-                ✖
-            </button>
-        </div>
-        <div class="py-3 px-4 flex items-center space-x-4">
-            <img class="w-10 h-10 rounded-full" [src]="user?.avatar" alt="" />
-            <div class="space-y-1">
-                <div>{{ user?.name }}</div>
-                <div class="text-sm text-gray-500">{{ user?.email }}</div>
+    </nav>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="menuOverlay" [cdkConnectedOverlayOpen]="isOpen"
+        (overlayOutsideClick)="isOpen = !isOpen">
+        <div class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
+            <div class="py-3 px-4 flex justify-between">
+                <span class="block text-sm text-center text-gray-900">Account</span>
+                <button (click)="isOpen = !isOpen" class="block text-sm text-gray-900">
+                    ✖
+                </button>
             </div>
+            <div class="py-3 px-4 flex items-center space-x-4">
+                <img class="w-10 h-10 rounded-full" [src]="user.avatar" alt="" />
+                <div class="space-y-1">
+                    <div>{{ user.name }}</div>
+                    <div class="text-sm text-gray-500">{{ user.email }}</div>
+                </div>
+            </div>
+            <ul class="py-1">
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Profile</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Activity</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Cards</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Settings</a>
+                </li>
+            </ul>
+            <ul class="py-1">
+                <li>
+                    <button (click)="isValidToken()"
+                        class="text-left w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">isValidToken</button>
+                </li>
+                <li>
+                    <button (click)="logout()"
+                        class="text-left w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Log
+                        out</button>
+                </li>
+            </ul>
         </div>
-        <ul class="py-1">
-            <li>
-                <a href="#"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Profile</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Activity</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Cards</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-white">Settings</a>
-            </li>
-        </ul>
-        <ul class="py-1">
-            <li>
-                <button (click)="logout()" class="text-left w-full py-2 px-4 text-sm text-gray-700 hover:bg-gray-600 hover:text-white">Log out</button>
-            </li>
-        </ul>
-    </div>
-</ng-template>
+    </ng-template>
+</ng-container>

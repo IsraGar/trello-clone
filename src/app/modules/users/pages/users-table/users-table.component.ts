@@ -3,6 +3,8 @@ import { DataSourceUser } from './data.source';
 import { CommonModule } from '@angular/common';
 import {CdkTableModule} from '@angular/cdk/table';
 import { UsersService } from '../../../../services/users.service';
+import { AuthService } from '../../../../services/auth.service';
+import { User } from '../../../../models/user.model';
 
 @Component({
   selector: 'app-users-table',
@@ -15,6 +17,8 @@ export class UsersTableComponent implements OnInit{
   dataSource = new DataSourceUser();
   columns: string[] = ['id', 'avatar', 'name', 'email'];
   private usersService = inject(UsersService);
+  private authService = inject(AuthService);
+  user: User | null = null;
 
   constructor() {
     this.dataSource.init([
@@ -43,6 +47,8 @@ export class UsersTableComponent implements OnInit{
     this.usersService.getUsers().subscribe(data => {
       this.dataSource.init(data);
     });
+
+    this.user = this.authService.getDataUser();
   }
 
 }

@@ -32,17 +32,20 @@ export const routes: Routes = [
       {
         path: 'boards',
         loadComponent: () => import('./modules/boards/pages/boards/boards.component').then(m => m.BoardsComponent),
+        canActivate: [ authGuard ],
         title: 'Tableros'
       },
       {
         path: 'board',
         loadComponent: () => import('./modules/boards/pages/board/board.component').then(m => m.BoardComponent),
+        canActivate: [ authGuard ],
         title: 'Tablero Ruta Angular'
       }
       ,
       {
         path: 'users',
         loadComponent: () => import('./modules/users/pages/users-table/users-table.component').then(m => m.UsersTableComponent),
+        canActivate: [ authGuard ],
         title: 'Tabla de usuarios'
       }
     ]
