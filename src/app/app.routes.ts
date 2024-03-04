@@ -36,7 +36,7 @@ export const routes: Routes = [
         title: 'Tableros'
       },
       {
-        path: 'board',
+        path: 'boards/:id',
         loadComponent: () => import('./modules/boards/pages/board/board.component').then(m => m.BoardComponent),
         canActivate: [ authGuard ],
         title: 'Tablero Ruta Angular'
