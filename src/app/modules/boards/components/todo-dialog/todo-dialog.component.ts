@@ -2,11 +2,11 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClose, faCheckToSlot, faBars, faUser, faTag, faCheckSquare, faClock } from '@fortawesome/free-solid-svg-icons';
-import { ToDo } from '../../../../models/todo.model';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { Card } from '../../../../models/cards.model';
 
 interface InputData {
-  todo: ToDo
+  card: Card
 }
 
 interface OutputData {
@@ -21,7 +21,7 @@ interface OutputData {
 })
 export class TodoDialogComponent {
 
-  todo: ToDo;
+  card: Card;
 
   faClose = faClose;
   faCheckToSlot = faCheckToSlot;
@@ -34,7 +34,7 @@ export class TodoDialogComponent {
   constructor(private dialogRef: DialogRef<OutputData>,
     @Inject(DIALOG_DATA) data: InputData
     ){
-      this.todo = data.todo;
+      this.card = data.card;
     }
 
   close(){
