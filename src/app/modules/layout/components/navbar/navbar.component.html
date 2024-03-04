@@ -8,19 +8,25 @@
                 </a>
                 <div class="flex items-center">
                     <ul class="flex items-center space-x-8 text-sm font-medium">
-                        <li>
-                            <a [routerLink]="['/app/boards']" class="block py-3 px-4 text-white">Workspaces</a>
+                        <li  class="hover:cursor-pointer">
+                            <a [routerLink]="['/app/boards']" class="block py-3 px-4 text-white">Home</a>
                         </li>
-                        <li>
+                        <li class="hover:cursor-pointer" (overlayOutsideClick)="isBoardsOpen = !isBoardsOpen">
+                            <a (click)="isBoardsOpen = !isBoardsOpen" type="button" cdkOverlayOrigin
+                                #trigger="cdkOverlayOrigin" class="block py-3 px-4 text-white">Boards</a>
+                        </li>
+                        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isBoardsOpen"
+                        (overlayOutsideClick)="isBoardsOpen = !isBoardsOpen">
+                            <ul role="list" class=" bg-gray-100 divide-y divide-gray-100">
+                                <li class="flex justify-between gap-x-6 py-1 px-2 hover:cursor-pointer hover:bg-sky-200"
+                                *ngFor="let board of boards"
+                                [routerLink]="['/app/boards', board.id]">{{ board.title }}</li>
+                            </ul>
+                        </ng-template>
+                        <li  class="hover:cursor-pointer">
                             <a [routerLink]="['/app/users']" class="block py-3 px-4 text-white">Users</a>
                         </li>
-                        <!-- <li>
-                                <a [routerLink]="['/scroll']" class="block py-3 px-4 text-white">Scroll</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="['/table']" class="block py-3 px-4 text-white">Table</a>
-                            </li> -->
-                        <li>
+                        <li  class="hover:cursor-pointer">
                             <app-btn typeBtn="button">Create</app-btn>
                         </li>
                     </ul>

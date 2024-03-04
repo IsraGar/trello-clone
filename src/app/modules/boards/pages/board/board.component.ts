@@ -106,7 +106,7 @@ export class BoardComponent implements OnInit {
   private updateCard(card: Card, position: number, listId: string | number){
     this.cardService.update(card.id, { position, listId })
     .subscribe(cardUpdated => {
-      console.log(cardUpdated);      
+      console.log('Updated');
     })
   }
 
