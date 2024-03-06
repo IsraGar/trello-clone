@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BtnComponent } from '../../../../components/btn/btn.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell, faInfoCircle, faAngleDown, faAngleUp, faClose } from '@fortawesome/free-solid-svg-icons';
@@ -12,11 +11,14 @@ import { Board } from '../../../../models/board.model';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {CdkMenu, CdkMenuItem} from '@angular/cdk/menu';
 import { BoardFormComponent } from '../board-form/board-form.component';
+import { BoardsService } from '../../../../services/boards.service';
+import { Colors, NAVBAR_BACKGROUNDS } from '../../../../models/colors.model';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [BtnComponent, OverlayModule, FontAwesomeModule, RouterLink, CommonModule, CdkMenuModule, CdkMenu, CdkMenuItem, BoardFormComponent],
+  imports: [ButtonComponent, OverlayModule, FontAwesomeModule, RouterLink, CommonModule, CdkMenuModule, CdkMenu, CdkMenuItem, BoardFormComponent],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit{
@@ -25,8 +27,11 @@ export class NavbarComponent implements OnInit{
   private tokenService = inject(TokenService);
   private router = inject(Router);
   private meService = inject(MeService);
+  private boardService = inject(BoardsService);
   boards: Board[] = [];
   user$ =  this.authService.user$;
+  navbarBackgroundColor: Colors = 'sky';
+  navbarColors = NAVBAR_BACKGROUNDS;
 
   faBell = faBell;
   faInfoCircle = faInfoCircle;
@@ -38,7 +43,10 @@ export class NavbarComponent implements OnInit{
   isBoardsOpen = false;
   isOpenOverlayCreateBoard = false;
 
-  constructor(){    
+  constructor(){
+    this.boardService.backgroundColor$.subscribe(color => {
+      this.navbarBackgroundColor = color;
+    })
   }
 
   ngOnInit(): void {
@@ -63,6 +71,11 @@ export class NavbarComponent implements OnInit{
   close(event: boolean){
     this.getBoards();
     this.isOpenOverlayCreateBoard = event;
+  }
+
+  get colors(){
+    const classes = this.navbarColors[this.navbarBackgroundColor];
+    return classes ? classes : {};
   }
 
 }

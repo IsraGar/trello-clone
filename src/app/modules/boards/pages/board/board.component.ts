@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, OnDestroy } from '@angular/core';
 import {DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { ToDo } from '../../../../models/todo.model';
 import { NavbarComponent } from '../../../layout/components/navbar/navbar.component';
@@ -16,6 +16,7 @@ import { CardService } from '../../../../services/card.service';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { List } from '../../../../models/list.model';
 import { ListService } from '../../../../services/list.service';
+import { BACKGROUNDS } from '../../../../models/colors.model';
 
 @Component({
   selector: 'app-board',
@@ -36,7 +37,7 @@ import { ListService } from '../../../../services/list.service';
     `
   ]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   faPlus = faPlus;
   faClose = faClose;
@@ -47,6 +48,7 @@ export class BoardComponent implements OnInit {
   private listService = inject(ListService);
   formBuilder = inject(FormBuilder);
   board: Board | null = null;
+  colorBackgrounds = BACKGROUNDS;
 
   inputCard = new FormControl<string>('',{
     nonNullable: true,
@@ -69,6 +71,10 @@ export class BoardComponent implements OnInit {
         this.getBoard(id);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.boardService.setBackgroundColor('sky');
   }
 
   todoList: ToDo[] = [];
@@ -130,6 +136,7 @@ export class BoardComponent implements OnInit {
     this.boardService.getBoard(id)
       .subscribe(board => {
         this.board = board;
+        this.boardService.setBackgroundColor(this.board.backgroundColor);
       })
   }
 
@@ -176,6 +183,14 @@ export class BoardComponent implements OnInit {
 
   closeCardForm(list: List){
     list.showCardForm = false;
+  }
+
+  get colors(){
+    if(this.board){
+      const classes = this.colorBackgrounds[this.board.backgroundColor];
+      return classes ? classes : {};
+    }
+    return {}
   }
 
 }
