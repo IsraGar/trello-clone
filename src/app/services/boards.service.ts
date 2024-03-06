@@ -4,6 +4,8 @@ import { environment } from '../environments/environment.prod';
 import { checkToken } from '../interceptors/token.interceptor';
 import { Board } from '../models/board.model';
 import { Card } from '../models/cards.model';
+import { Colors } from '../models/colors.model';
+import { List } from '../models/list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,10 @@ export class BoardsService {
 
   getBoard(id: Board['id']){
     return this.http.get<Board>(`${this.apiUrl}/api/v1/boards/${id}`, { context: checkToken() })
+  }
+
+  createBoard(title: string, backgroundColor: Colors){
+    return this.http.post<Board>(`${this.apiUrl}/api/v1/boards`, { title, backgroundColor }, { context: checkToken() })
   }
 
   getPosition(cards: Card[], currentIndex: number){
@@ -38,6 +44,15 @@ export class BoardsService {
       return onBottomPosition + this.bufferSpace;
     }
     return 0;
+  }
+
+  getPositionNewItem(elements: Card[] | List[]){
+    if(elements.length === 0){
+      return this.bufferSpace;
+    }
+    const lastIndex = elements.length - 1;
+    const onBottomPosition = elements[lastIndex].position;
+      return onBottomPosition + this.bufferSpace;
   }
 
 }

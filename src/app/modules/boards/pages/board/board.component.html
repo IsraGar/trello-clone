@@ -16,12 +16,29 @@
                             class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
                             {{ card.title }}
                         </div>
-                        <button class="shrink-0 text-left py-2 mt-1 rounded px-1 bg-gray-300 hover:bg-gray-400">Add Task
-                            <fa-icon [icon]="faPlus"></fa-icon></button>
+                        <div class="mt-5">
+                            <app-btn *ngIf="!list.showCardForm" color="light" class="shrink-0" (click)="openFormCard(list)"><fa-icon class="mr-1" [icon]="faPlus"></fa-icon>Add a card</app-btn>
+                            <div class="w-full" *ngIf="list.showCardForm">
+                                <textarea class="w-full rounded bg-gray-50 border-gray-300 border-2" [formControl]="inputCard"></textarea>
+                                <div class="flex">
+                                    <app-btn color="sky" (click)="createCard(list)">Create</app-btn>
+                                    <fa-icon class="mt-2 ml-3 hover:cursor-pointer" [icon]="faClose" (click)="closeCardForm(list)"></fa-icon>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="shrink-0 py-1 px-1 rounded bg-gray-300" (click)="addColumn()">Add Column <fa-icon
-                        [icon]="faPlus"></fa-icon></button>
+                <div class="shrink-0">
+                    <button *ngIf="!showListForm" class="py-1 px-2 rounded bg-sky-700 text-white hover:bg-sky-600" (click)="showListForm = !showListForm"><fa-icon class="mr-1" [icon]="faPlus"></fa-icon>Add another list</button>
+                        <div class="w-full" *ngIf="showListForm">
+                            <textarea class="w-full rounded bg-gray-50 border-gray-300 border-2" [formControl]="inputList"></textarea>
+                            <div class="flex">
+                                <app-btn color="sky" (click)="addList()">Create</app-btn>
+                                <fa-icon class="mt-2 ml-3 hover:cursor-pointer" [icon]="faClose" (click)="showListForm = !showListForm"></fa-icon>
+                            </div>
+                        </div>
+                </div>
+                
             </div>
         </div>
     </div>

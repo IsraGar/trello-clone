@@ -108,7 +108,7 @@
             </div>
             <div class="py-3 px-3">
                 <ul>
-                    <li class="hover:cursor-pointer hover:bg-gray-100" *ngFor="let board of boards" [routerLink]="['/app/boards', board.id]">{{ board.title }}</li>
+                    <li (click)="isBoardsOpen = !isBoardsOpen" class="hover:cursor-pointer hover:bg-gray-100" *ngFor="let board of boards" [routerLink]="['/app/boards', board.id]">{{ board.title }}</li>
                 </ul>
             </div>
         </div>        
@@ -124,7 +124,7 @@
                 </button>
             </div>
             <div class="py-3 px-4 flex justify-between">
-                <app-board-form></app-board-form>
+                <app-board-form (closeOverlay)="close($event)"></app-board-form>
             </div>
         </div>
     </ng-template>

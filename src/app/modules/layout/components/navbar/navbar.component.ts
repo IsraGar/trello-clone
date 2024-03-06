@@ -42,6 +42,10 @@ export class NavbarComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getBoards();
+  }
+
+  getBoards(){
     this.meService.getMeBoards().subscribe(boards => {
       this.boards = boards;
     })
@@ -54,6 +58,11 @@ export class NavbarComponent implements OnInit{
 
   isValidToken(){
     console.log(this.tokenService.isValidToken());
+  }
+
+  close(event: boolean){
+    this.getBoards();
+    this.isOpenOverlayCreateBoard = event;
   }
 
 }
